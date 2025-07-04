@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://burrytp76vvi1"]
+
+[ext_resource type="PackedScene" uid="uid://cwk0ps1x66kvf" path="res://systems/rhythm_manager.tscn" id="1_4o3f6"]
+[ext_resource type="Resource" uid="uid://bbrylmhihk31h" path="res://resources/test_rhythm_data.tres" id="2_v5vuv"]
+[ext_resource type="PackedScene" uid="uid://6tap5ic73isr" path="res://systems/rhythm_input_handler.tscn" id="3_ka7wq"]
+
+[node name="Room" type="Node"]
+
+[node name="RhythmManager" parent="." instance=ExtResource("1_4o3f6")]
+RhythmData = ExtResource("2_v5vuv")
+
+[node name="RhythmInputHandler" parent="." node_paths=PackedStringArray("rhythmManager") instance=ExtResource("3_ka7wq")]
+rhythmManager = NodePath("../RhythmManager")

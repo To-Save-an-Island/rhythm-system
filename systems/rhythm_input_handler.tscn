@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://6tap5ic73isr"]
+
+[ext_resource type="Script" uid="uid://rcytcopi0i5x" path="res://RhythmInputHandler.cs" id="1_yhoic"]
+
+[node name="RhythmInputHandler" type="Node"]
+script = ExtResource("1_yhoic")
