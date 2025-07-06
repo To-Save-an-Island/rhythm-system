@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cwk0ps1x66kvf"]
-
-[ext_resource type="Script" uid="uid://cn725cqwhtkxc" path="res://RhythmManager.cs" id="1_0wx20"]
-
-[node name="RhythmManager" type="Node"]
-script = ExtResource("1_0wx20")

@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 
 public partial class RhythmManager : Node
@@ -8,18 +9,21 @@ public partial class RhythmManager : Node
     [Export]
     public RhythmData RhythmData { get; set; }
 
+
+    private RhythmUI rhythmUI;
+
     public Dictionary<String, double> hitRatingBeatOffset = new Dictionary<string, double>
     {
-        { "perfect", 0.2 },
-        { "good", 0.6 },
-        { "hit", 1.0 }
+        { "perfect", 0.1 },
+        { "good", 0.2 },
+        { "hit", 0.4 }
     };
-
     double currentTime;
     public double BeatTime
     {
         get => RhythmData.ConvertTimeToBeatTime(currentTime);
     }
+    private double beatSpawnOffsetBeatTime;
 
     public void StartTrack()
     {
@@ -31,21 +35,31 @@ public partial class RhythmManager : Node
         SetProcess(false);
     }
 
+    public override void _Ready()
+    {
+        SetProcess(false);
+        
+        rhythmUI = GetNode<RhythmUI>("../RhythmUI");
+
+        Callable.From(() => 
+        {
+            beatSpawnOffsetBeatTime = (rhythmUI.containerLength - 2*rhythmUI.beatUIWidth - (hitRatingBeatOffset["hit"] * rhythmUI.beatTravelLength)) / rhythmUI.beatTravelLength;
+        }).CallDeferred();
+        
+    }
+
     public override void _Process(double delta)
     {
         currentTime += delta;
 
-        // TEMP: Test output in console
-        foreach (Beat beat in RhythmData.Beats)
-        {
-            GD.Print(beat.BeatTime + " " + beat.HitRating + " ");
-        }
-        GD.Print("----------");
-        
-
         // Mark all beats far behind as miss
         foreach (Beat beat in RhythmData.Beats)
         {
+            if (beat != null && beat?.beatUI == null && (beat?.BeatTime - BeatTime - beatSpawnOffsetBeatTime) < 0.1)
+            {
+                rhythmUI.SpawnBeat(beat);
+            }
+
             if (beat.HitRating != null) continue;
             double beatTimeDiff = BeatTime - beat.BeatTime;
             if (beatTimeDiff > hitRatingBeatOffset["hit"])

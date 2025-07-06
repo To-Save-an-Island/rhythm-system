@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dy4ni4pwbbdwx"]
+
+[ext_resource type="Script" uid="uid://bmfvsbva4qca3" path="res://ui/BeatUI.cs" id="1_tpj6t"]
+[ext_resource type="PackedScene" uid="uid://c87ilt540q2j5" path="res://ui/rating_label.tscn" id="2_py8kk"]
+
+[node name="BeatUI" type="ColorRect"]
+offset_right = 4.0
+offset_bottom = 30.0
+script = ExtResource("1_tpj6t")
+RatingLabelScene = ExtResource("2_py8kk")

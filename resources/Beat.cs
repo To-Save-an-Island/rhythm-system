@@ -5,9 +5,23 @@ using Godot;
 public partial class Beat : Resource
 {
     [Export]
-    public float BeatTime { get; set; } // How much time elapsed in number of beats
+    public double BeatTime { get; set; } // How much time elapsed in number of beats
     [Export]
     public int Note { get; set; }
-    
-    public String HitRating { get; set; }
+
+    private String hitRating;
+    public String HitRating
+    {
+        get => hitRating;
+        set
+        {
+            hitRating = value;
+
+            if (beatUI == null) return;
+            beatUI.hitRatingText = value;
+            beatUI.FadeOut();
+        }
+    }
+
+    public BeatUI beatUI;
 }

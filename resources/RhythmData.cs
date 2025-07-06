@@ -4,7 +4,7 @@ using System;
 public partial class RhythmData : Resource
 {
     [Export]
-    public int BPM { get; set; } = 60;
+    public int BPM { get; set; }
     [Export]
     public Beat[] Beats { get; set; }
 
@@ -26,8 +26,21 @@ public partial class RhythmData : Resource
         return validBeat;
     }
 
+    public Beat GetNextBeat(double beatTime)
+    {
+        foreach (Beat beat in Beats)
+        {
+            if (beat.BeatTime > beatTime) return beat;
+        }
+        return null;
+    }
+
     public double ConvertTimeToBeatTime(double time)
     {
-        return time * 60 / BPM;
+        return time * BPM / 60;
+    }
+    public double ConvertBeatTimeToTime(double beatTime)
+    {
+        return beatTime * 60 / BPM;
     }
 }

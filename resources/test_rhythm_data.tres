@@ -5,20 +5,20 @@
 
 [sub_resource type="Resource" id="Resource_xcx4k"]
 script = ExtResource("1_xcx4k")
-BeatTime = 3.0
+BeatTime = 4.0
 Note = 0
 
 [sub_resource type="Resource" id="Resource_rdc0m"]
 script = ExtResource("1_xcx4k")
-BeatTime = 6.0
+BeatTime = 5.0
 Note = 0
 
 [sub_resource type="Resource" id="Resource_xqcwx"]
 script = ExtResource("1_xcx4k")
-BeatTime = 9.0
+BeatTime = 7.0
 Note = 0
 
 [resource]
 script = ExtResource("1_221wk")
-BPM = 60
+BPM = 120
 Beats = Array[Resource]([SubResource("Resource_xcx4k"), SubResource("Resource_rdc0m"), SubResource("Resource_xqcwx")])
