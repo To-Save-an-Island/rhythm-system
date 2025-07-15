@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 
 
 public partial class RhythmManager : Node
@@ -9,8 +10,7 @@ public partial class RhythmManager : Node
     [Export]
     public RhythmData RhythmData { get; set; }
 
-
-    private RhythmUI rhythmUI;
+    public List<RhythmUI> RhythmUIs { get; set; }
 
     public Dictionary<String, double> hitRatingBeatOffset = new Dictionary<string, double>
     {
@@ -38,28 +38,29 @@ public partial class RhythmManager : Node
     public override void _Ready()
     {
         SetProcess(false);
-        
-        rhythmUI = GetNode<RhythmUI>("../RhythmUI");
-
-        Callable.From(() => 
-        {
-            beatSpawnOffsetBeatTime = (rhythmUI.containerLength - 2*rhythmUI.beatUIWidth - (hitRatingBeatOffset["hit"] * rhythmUI.beatTravelLength)) / rhythmUI.beatTravelLength;
-        }).CallDeferred();
-        
     }
 
     public override void _Process(double delta)
     {
         currentTime += delta;
 
-        // Mark all beats far behind as miss
+        // Process each beat
         foreach (Beat beat in RhythmData.Beats)
         {
-            if (beat != null && beat?.beatUI == null && (beat?.BeatTime - BeatTime - beatSpawnOffsetBeatTime) < 0.1)
+            // Beat debug info
+            // GD.Print("---");
+            // GD.Print(beat.BeatTime);
+            // GD.Print(beat.HitRating);
+            // GD.Print(beat.spawnTime);
+
+            // Spawn beat
+            if (beat.isSpawned == false && ((beat.spawnTime - BeatTime) < 0.1))
             {
+                RhythmUI rhythmUI = RhythmUIs[(int)(GD.Randi() % RhythmUIs.Count)];
                 rhythmUI.SpawnBeat(beat);
             }
 
+            // Mark all beats far behind as miss
             if (beat.HitRating != null) continue;
             double beatTimeDiff = BeatTime - beat.BeatTime;
             if (beatTimeDiff > hitRatingBeatOffset["hit"])

@@ -10,7 +10,7 @@ public partial class RhythmInputHandler : Node
     {
         if (Input.IsActionJustPressed("instrument"))
         {
-            GD.Print(rhythmManager.SetHitRatingForCurrentTime());
+            rhythmManager.SetHitRatingForCurrentTime();
         }
     }
 

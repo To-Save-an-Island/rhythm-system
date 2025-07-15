@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://daddga61aqxjy"]
+
+[ext_resource type="Script" uid="uid://blnmnsgin8ill" path="res://components/RhythmUI.cs" id="1_7k5aw"]
+[ext_resource type="PackedScene" uid="uid://dy4ni4pwbbdwx" path="res://ui/beat_ui.tscn" id="2_eeey8"]
+
+[node name="RhythmUI" type="PanelContainer"]
+custom_minimum_size = Vector2(180, 40)
+offset_right = 180.0
+offset_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_7k5aw")
+BeatUIScene = ExtResource("2_eeey8")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Control" type="Control" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="BeatHitMarker" type="ColorRect" parent="MarginContainer/Control"]
+layout_mode = 0
+offset_left = 41.5
+offset_right = 45.5
+offset_bottom = 30.0
+color = Color(0.2982, 0.36925, 0.42, 1)
+
+[node name="BeatSpawnPosition" type="Node2D" parent="MarginContainer/Control"]
+position = Vector2(166, 0)

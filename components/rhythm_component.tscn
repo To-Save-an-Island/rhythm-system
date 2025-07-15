@@ -1,11 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://bcx36448jmuk4"]
+[gd_scene load_steps=6 format=3 uid="uid://bcx36448jmuk4"]
 
 [ext_resource type="Script" uid="uid://bx2o4ngtvblnd" path="res://components/RhythmComponent.cs" id="1_anhaf"]
 [ext_resource type="Resource" uid="uid://bbrylmhihk31h" path="res://resources/test_rhythm_data.tres" id="2_rdmgo"]
 [ext_resource type="Script" uid="uid://bylkibp5ougcj" path="res://components/RhythmInputHandler.cs" id="3_qaeyn"]
 [ext_resource type="Script" uid="uid://dwfp7oqxybnll" path="res://components/RhythmManager.cs" id="4_rdmgo"]
-[ext_resource type="Script" uid="uid://blnmnsgin8ill" path="res://components/RhythmUI.cs" id="5_rdmgo"]
-[ext_resource type="PackedScene" uid="uid://dy4ni4pwbbdwx" path="res://ui/beat_ui.tscn" id="6_sf3ei"]
+[ext_resource type="PackedScene" uid="uid://daddga61aqxjy" path="res://ui/rhythm_ui.tscn" id="5_rdmgo"]
 
 [node name="RhythmComponent" type="Node2D"]
 script = ExtResource("1_anhaf")
@@ -18,42 +17,26 @@ rhythmManager = NodePath("../RhythmManager")
 [node name="RhythmManager" type="Node" parent="."]
 script = ExtResource("4_rdmgo")
 
-[node name="RhythmUI" type="Panel" parent="." node_paths=PackedStringArray("RhythmManager")]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -90.0
-offset_top = -40.0
-offset_right = 90.0
-grow_horizontal = 2
-grow_vertical = 0
-script = ExtResource("5_rdmgo")
-BeatUIScene = ExtResource("6_sf3ei")
-RhythmManager = NodePath("../RhythmManager")
-
-[node name="MarginContainer" type="MarginContainer" parent="RhythmUI"]
-layout_mode = 1
+[node name="PanelContainer" type="PanelContainer" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 180.0
+offset_bottom = 130.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
-[node name="Control" type="Control" parent="RhythmUI/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="RhythmUI" parent="PanelContainer/VBoxContainer" instance=ExtResource("5_rdmgo")]
 layout_mode = 2
 
-[node name="BeatHitMarker" type="ColorRect" parent="RhythmUI/MarginContainer/Control"]
-layout_mode = 0
-offset_left = 41.5
-offset_right = 45.5
-offset_bottom = 30.0
-color = Color(0.2982, 0.36925, 0.42, 1)
+[node name="RhythmUI2" parent="PanelContainer/VBoxContainer" instance=ExtResource("5_rdmgo")]
+layout_mode = 2
 
-[node name="BeatSpawnPosition" type="Node2D" parent="RhythmUI/MarginContainer/Control"]
-position = Vector2(166, 0)
+[node name="RhythmUI3" parent="PanelContainer/VBoxContainer" instance=ExtResource("5_rdmgo")]
+layout_mode = 2

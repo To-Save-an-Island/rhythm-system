@@ -24,4 +24,6 @@ public partial class Beat : Resource
     }
 
     public BeatUI beatUI;
+    public double spawnTime;
+    public bool isSpawned = false;
 }
